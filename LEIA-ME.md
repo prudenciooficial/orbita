@@ -1,7 +1,7 @@
-# Órbita — tema para o MeshCentral
+# Órbita — detalhes do projeto
 
-Rebrand completo da interface clássica do MeshCentral (painel + login), feito só com
-arquivos extras servidos por cima dos originais. Nenhum arquivo do MeshCentral e
+O Órbita substitui toda a interface clássica do MeshCentral (painel + login) por uma
+experiência própria, entregue como arquivos extras servidos por cima dos originais. Nenhum arquivo do MeshCentral e
 nenhuma configuração (`config.json`) é alterada.
 
 ## O que muda
