@@ -99,8 +99,7 @@ reconhece a pasta `meshcentral-web/public` ao iniciar. Para desinstalar: `./remo
 ### Atualizar
 
 Na stack do Portainer, use **Pull and redeploy**; no Compose, `docker compose pull && docker compose up -d`.
-A versão nova substitui a interface no primeiro início, sem passo manual. Para voltar à
-interface original do MeshCentral sem desinstalar, defina `ORBITA_DESATIVAR=true` no container.
+A versão nova substitui a interface no primeiro início, sem passo manual.
 
 Testado no MeshCentral 1.2.6, na interface clássica.
 
