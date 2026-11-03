@@ -1,0 +1,52 @@
+# Órbita — Central de acesso remoto
+#
+# Stack para Portainer ou Docker Compose. Em Portainer: Stacks → Add stack →
+# Repository → URL https://github.com/prudenciooficial/orbita (ou cole este
+# arquivo no editor), preencha as variáveis e clique em Deploy the stack.
+#
+# Variáveis (todas opcionais):
+#   ORBITA_DOMINIO          nome do servidor, ex. acesso.minhaempresa.com.br (padrão: localhost)
+#   ORBITA_PORTA_HTTPS      porta HTTPS publicada no servidor (padrão: 443)
+#   ORBITA_PORTA_HTTP       porta HTTP que redireciona para HTTPS (padrão: 80)
+#   ORBITA_PROXY            atrás de proxy reverso (Cloudflare, Nginx Proxy Manager...):
+#                           o domínio público, ex. acesso.minhaempresa.com.br
+#   ORBITA_PROXY_PORTA      porta TLS do proxy (padrão: 443)
+#   ORBITA_PROXY_CONFIAVEL  IPs/redes do proxy, em JSON, ex. "172.18.0.0/16" (com as aspas) ou all
+#   ORBITA_VERSAO           tag da imagem (padrão: latest)
+#   TZ                      fuso horário (padrão: America/Sao_Paulo)
+#
+# Primeiro acesso: abra https://SEU_DOMINIO e crie a conta; a primeira conta
+# criada vira administradora e, depois dela, o cadastro fica fechado.
+
+services:
+  orbita:
+    image: ghcr.io/prudenciooficial/orbita:${ORBITA_VERSAO:-latest}
+    container_name: orbita
+    restart: unless-stopped
+    ports:
+      - "${ORBITA_PORTA_HTTPS:-443}:443"
+      - "${ORBITA_PORTA_HTTP:-80}:80"
+    environment:
+      TZ: ${TZ:-America/Sao_Paulo}
+      # As variáveis abaixo são aplicadas ao config.json a cada início.
+      # Para editar o config.json à mão, troque para "false" depois do primeiro início.
+      DYNAMIC_CONFIG: "true"
+      HOSTNAME: ${ORBITA_DOMINIO:-localhost}
+      ALLOW_NEW_ACCOUNTS: "false"
+      WEBRTC: "false"
+      LOCAL_SESSION_RECORDING: "false"
+      MINIFY: "true"
+      REVERSE_PROXY: ${ORBITA_PROXY:-}
+      REVERSE_PROXY_TLS_PORT: ${ORBITA_PROXY_PORTA:-443}
+      TRUSTED_PROXY: ${ORBITA_PROXY_CONFIAVEL:-}
+    volumes:
+      - orbita-dados:/opt/meshcentral/meshcentral-data
+      - orbita-arquivos:/opt/meshcentral/meshcentral-files
+      - orbita-web:/opt/meshcentral/meshcentral-web
+      - orbita-backups:/opt/meshcentral/meshcentral-backups
+
+volumes:
+  orbita-dados:
+  orbita-arquivos:
+  orbita-web:
+  orbita-backups:

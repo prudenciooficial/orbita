@@ -54,7 +54,38 @@ do MeshCentral que você já tem, e atualizar o MeshCentral não apaga o Órbita
 
 ## Instalação
 
-Com o MeshCentral rodando em Docker (container `meshcentral`):
+### Portainer (recomendado): uma stack e pronto
+
+1. Em **Stacks → Add stack**, escolha **Repository** e informe
+   `https://github.com/prudenciooficial/orbita` (ou cole o conteúdo de
+   [`docker-compose.yml`](docker-compose.yml) no editor).
+2. Em **Environment variables**, preencha `ORBITA_DOMINIO` com o endereço do servidor
+   (ex.: `acesso.minhaempresa.com.br`). As outras variáveis são opcionais e estão explicadas
+   no começo do arquivo.
+3. Clique em **Deploy the stack**.
+
+Abra `https://SEU_DOMINIO` e crie a conta: a primeira conta vira administradora e, depois
+dela, o cadastro fica fechado. A imagem `ghcr.io/prudenciooficial/orbita` já traz o MeshCentral
+na versão testada com a interface do Órbita instalada; os dados ficam nos volumes `orbita-*`.
+
+### Docker Compose
+
+```bash
+git clone https://github.com/prudenciooficial/orbita.git
+cd orbita
+ORBITA_DOMINIO=acesso.minhaempresa.com.br docker compose up -d
+```
+
+### Atrás de proxy reverso (Cloudflare Tunnel, Nginx Proxy Manager…)
+
+Aponte o proxy para a porta 443 do container (HTTPS) e preencha `ORBITA_PROXY` com o domínio
+público e `ORBITA_PROXY_CONFIAVEL` com a rede do proxy (ex.: `"172.18.0.0/16"`, com as aspas),
+para o Órbita registrar o IP real de quem acessa. Com isso os agentes aceitam o certificado do
+proxy.
+
+### Já tem um MeshCentral?
+
+Com o MeshCentral rodando em Docker (container `meshcentral`), instale só a interface:
 
 ```bash
 git clone https://github.com/prudenciooficial/orbita.git
@@ -64,6 +95,12 @@ cd orbita
 
 Na primeira instalação o container é reiniciado uma vez (~30 s), porque o MeshCentral só
 reconhece a pasta `meshcentral-web/public` ao iniciar. Para desinstalar: `./remover.sh`.
+
+### Atualizar
+
+Na stack do Portainer, use **Pull and redeploy**; no Compose, `docker compose pull && docker compose up -d`.
+A versão nova substitui a interface no primeiro início, sem passo manual. Para voltar à
+interface original do MeshCentral sem desinstalar, defina `ORBITA_DESATIVAR=true` no container.
 
 Testado no MeshCentral 1.2.6, na interface clássica.
 

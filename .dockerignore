@@ -1,0 +1,7 @@
+# Só entra na imagem o que ela precisa (backup/ tem segredos e nunca entra).
+*
+!dist/public/
+!docker/iniciar.sh
+!LICENSE
+!NOTICE
+!licencas/
