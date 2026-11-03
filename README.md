@@ -81,6 +81,12 @@ novas versões do MeshCentral e traduções.
 Para relatar problemas, abra uma issue com a versão do MeshCentral, o navegador e, se possível,
 uma captura de tela.
 
+## Licença
+
+O código do Órbita é distribuído sob a licença [Apache 2.0](LICENSE). Contribuições enviadas por
+pull request entram sob a mesma licença. A licença não dá direito de usar o nome nem a marca
+Órbita.
+
 ## Créditos
 
 O Órbita é construído sobre o **MeshCentral**, de **Ylian Saint-Hilaire** e colaboradores
