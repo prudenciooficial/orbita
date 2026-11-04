@@ -26,6 +26,13 @@ instaladas sobre um servidor MeshCentral sem alterar nenhum arquivo dele.
 | ![Tema escuro](prints/tema-escuro.png) | |
 | **Tema escuro** — alterna pelo botão no cabeçalho | |
 
+**No celular**
+
+| | | | |
+|:--:|:--:|:--:|:--:|
+| ![Dispositivos no celular](prints/celular-dispositivos.png) | ![Arquivos no celular](prints/celular-arquivos.png) | ![Área de trabalho em tela cheia no celular](prints/celular-desktop.png) | ![Tema escuro no celular](prints/celular-escuro.png) |
+| Dispositivos | Arquivos | Área de trabalho | Tema escuro |
+
 As imagens foram tiradas num servidor de demonstração com três computadores Linux de teste.
 
 ## Recursos
@@ -40,6 +47,9 @@ As imagens foram tiradas num servidor de demonstração com três computadores L
   pelas seções e troca o tema.
 - Resumo de dispositivos online/offline, barra de status flutuante, abas com ícones e
   animações leves que respeitam "reduzir movimento".
+- **Celular e tablet**: a mesma interface, responsiva. No telefone o menu vai para a parte de
+  baixo, as abas rolam na horizontal, os cartões ficam em coluna com os atalhos sempre
+  visíveis, e desktop, terminal e arquivos cabem na tela.
 
 **Área de trabalho remota**
 - Tela cheia sob demanda, com barras flutuantes que aparecem perto da borda, e modos

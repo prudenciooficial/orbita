@@ -903,7 +903,22 @@
         setInterval(function () { safe(updateStatus); }, 4000);
     }
 
+    // ---------- Celular: a interface do Órbita é a clássica, em qualquer tela ----------
+    // Em telefones o MeshCentral serve uma página própria ("mobile"), que o
+    // Órbita não cobre. Ela é identificada pelos seus elementos e trocada pela
+    // interface clássica (?mobile=0), que aqui é responsiva.
+    function mobileRedirect() {
+        if ($('page_leftbar') || document.body.classList.contains('login')) return false;
+        if (!$('topMenu') || !$('page_content')) return false;
+        if (/[?&]mobile=0(&|$)/.test(location.search)) return false;
+        var u = new URL(location.href);
+        u.searchParams.set('mobile', '0');
+        location.replace(u.toString());
+        return true;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
+        if (safe(mobileRedirect)) return;
         safe(renameTitle);
         var body = document.body;
         if (body && body.classList.contains('login')) { safe(initLogin); return; }

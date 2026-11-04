@@ -95,8 +95,10 @@ Em `src/custom.js`, altere `BRAND` no topo e rode `src/construir.sh` e `./instal
 
 ## Observações
 
-- Vale para a interface clássica (a padrão). A "nova interface" (Bootstrap) e a versão
-  mobile do MeshCentral continuam com o visual original.
+- Vale para a interface clássica (a padrão), que o Órbita também entrega em celulares: a
+  página "mobile" própria do MeshCentral é trocada pela clássica (`?mobile=0`), que abaixo de
+  760 px ganha menu inferior, abas roláveis, cartões em coluna e gerenciador de arquivos
+  compacto. A "nova interface" (Bootstrap) continua com o visual original.
 - O MeshCentral recalcula a altura de listas, desktop e terminal em JavaScript; o tema
   mede e encaixa essas áreas automaticamente para nada ficar escondido atrás do rodapé.
 - Testado no MeshCentral 1.2.6. Em atualizações do MeshCentral, confira as telas
