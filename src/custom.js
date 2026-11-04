@@ -84,14 +84,15 @@
     function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
 
     // ---------- Título da aba ----------
+    function fixTitle() {
+        var t = document.title;
+        if (t && t.indexOf('MeshCentral') >= 0) { document.title = t.split('MeshCentral').join(BRAND.name); }
+    }
     function renameTitle() {
-        var fix = function () {
-            var t = document.title;
-            if (t && t.indexOf('MeshCentral') >= 0) { document.title = t.split('MeshCentral').join(BRAND.name); }
-        };
-        fix();
-        var t = document.querySelector('head > title');
-        if (t && window.MutationObserver) { new MutationObserver(fix).observe(t, { childList: true, characterData: true, subtree: true }); }
+        fixTitle();
+        // No painel o <title> fica fora do <head>, por isso a busca é no documento todo.
+        var t = document.querySelector('title');
+        if (t && window.MutationObserver) { new MutationObserver(fixTitle).observe(t, { childList: true, characterData: true, subtree: true }); }
     }
 
     // ---------- Login ----------
@@ -842,6 +843,7 @@
     }
 
     function afterNav() {
+        fixTitle(); // o go() do MeshCentral reescreve o título a cada navegação
         state.view = viewNow();
         document.body.setAttribute('data-orb-view', String(state.view));
         try { document.dispatchEvent(new CustomEvent('orb:view', { detail: state.view })); } catch (ex) { }
