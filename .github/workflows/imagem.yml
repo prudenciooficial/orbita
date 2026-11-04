@@ -28,6 +28,7 @@ jobs:
           cmp /tmp/custom.css dist/public/styles/custom.css
           cmp src/custom.js dist/public/scripts/custom.js
           cmp src/orbita-files.js dist/public/scripts/orbita-files.js
+          cmp src/orbita-touch.js dist/public/scripts/orbita-touch.js
 
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3

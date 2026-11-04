@@ -139,7 +139,8 @@ html.orb body:not(.fullscreen):not(.fulldesk) #container {
 html.orb body.fulldesk #masthead, html.orb body.fulldesk #footer, html.orb body.fulldesk #page_leftbar,
 html.orb body.fulldesk #topbar, html.orb body.fulldesk .orb-qa { display: none !important; }
 
-html.orb body.fullscreen:not(.fulldesk) #container { grid-template-columns: 84px auto; grid-template-rows: 54px 36px auto 45px; }
+html.orb body.fullscreen:not(.fulldesk) #container { grid-template-columns: 84px minmax(0, 1fr); grid-template-rows: 54px 36px auto 45px; }
+html.orb body:not(.fulldesk) #topbar, html.orb body:not(.fulldesk) #column_l { min-width: 0; }
 html.orb body.fullscreen.nofooter:not(.fulldesk) #container { grid-template-rows: 54px 36px auto 0px; }
 html.orb body.fullscreen.menu_stack:not(.fulldesk) #container { grid-template-rows: 54px minmax(36px, max-content) auto 45px; }
 html.orb body.fullscreen.menu_stack.nofooter:not(.fulldesk) #container { grid-template-rows: 54px minmax(36px, max-content) auto 0px; }
@@ -1874,6 +1875,22 @@ html.orb #orb-fx-pop .fx-msep { height: 1px; margin: 4px 6px; background: var(--
     html.orb #orb-fx .fx-hint { display: none; }
 }
 
+/* Tablet e celular deitado: as abas rolam em vez de alargar a página */
+@media (max-width: 1200px) {
+    html.orb #topbar > div > div { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+    html.orb #topbar > div > div::-webkit-scrollbar { display: none; }
+    html.orb #topbar table.style1 > tbody > tr { flex: none; }
+    html.orb .orb-devctx { position: sticky; right: 40px; flex: none; } /* Tela cheia fica à vista ao rolar */
+    html.orb .orb-devctx > b, html.orb .orb-devctx > .orb-devctx-mesh { display: none !important; }
+}
+/* Sem mouse, o botão de tela cheia flutua, como no celular */
+@media (min-width: 761px) and (max-width: 1200px) and (hover: none) and (pointer: coarse) {
+    html.orb .orb-devctx { position: static; margin: 0; }
+    html.orb .orb-full { position: fixed; right: 14px; bottom: 14px; z-index: 25; width: 48px; min-height: 48px !important; padding: 0 !important; justify-content: center; border-radius: 999px !important; box-shadow: 0 14px 30px -10px rgba(91, 76, 240, .8) !important; }
+    html.orb .orb-full span { display: none; }
+    html.orb .orb-full .orb-ico { width: 20px; height: 20px; }
+}
+
 /* ==========================================================================
    LOGIN
    ========================================================================== */
@@ -2004,6 +2021,8 @@ html.orb body.login #dialog { color: var(--orb-text) !important; }
         grid-template-rows: 54px auto minmax(0, 1fr) 62px !important;
         grid-template-areas: "header" "nav" "content" "bottom" !important;
     }
+    /* O MeshCentral exige 700 px na tela cheia do desktop, o que cortaria a imagem */
+    html.orb body.fulldesk #container { min-width: 0 !important; width: 100% !important; }
     html.orb body:not(.fulldesk) #masthead { grid-area: header; min-width: 0; }
     html.orb body:not(.fulldesk) #topbar { grid-area: nav; min-width: 0; }
     html.orb body:not(.fulldesk) #column_l { grid-area: content; min-width: 0; overflow-x: hidden; overflow-y: auto; padding: 0 12px !important; -webkit-overflow-scrolling: touch; }
@@ -2135,4 +2154,76 @@ html.orb body.login #dialog { color: var(--orb-text) !important; }
     html.orb .orb-cmd-act { height: 34px; }
     html.orb #orb-fx .fx-row { min-height: 44px; }
     html.orb #orb-fx .fx-nav button, html.orb #orb-fx .fx-cmd button { min-width: 36px; min-height: 36px; }
+}
+
+/* ==========================================================================
+   TOQUE: ponteiro e botão flutuante do desktop remoto (orbita-touch.js)
+   ========================================================================== */
+html.orb.orb-touchdesk #deskarea3x, html.orb.orb-touchdesk #DeskParent, html.orb.orb-touchdesk #DeskFocus, html.orb.orb-touchdesk #Desk {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+html.orb .orb-ptr {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 39;
+    width: 26px;
+    height: 26px;
+    margin: -4px 0 0 -4px; /* a ponta da seta fica no ponto exato do clique */
+    pointer-events: none;
+    will-change: transform;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .55));
+}
+html.orb .orb-ptr svg { display: block; width: 100%; height: 100%; fill: #fff; stroke: #12141e; stroke-width: 1.6; stroke-linejoin: round; }
+html.orb .orb-tk {
+    position: fixed;
+    top: 38%; /* no meio da tela, para o teclado do aparelho não cobrir */
+    right: 10px;
+    z-index: 41;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(18, 20, 30, .72);
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .6);
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+html.orb .orb-ptr[hidden], html.orb .orb-tk[hidden] { display: none; }
+html.orb .orb-tk button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    min-width: 44px !important;
+    height: 44px;
+    min-height: 44px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: #e9ebf3 !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+html.orb .orb-tk button.on { background: var(--orb-accent) !important; color: #fff !important; }
+html.orb .orb-tk .orb-ico { width: 22px; height: 22px; }
+html.orb input.orb-softkey {
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 1px !important;
+    min-width: 0 !important;
+    height: 1px !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    opacity: 0;
+    font-size: 16px !important; /* abaixo disso o iPhone dá zoom ao focar */
 }

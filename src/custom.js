@@ -871,12 +871,20 @@
         if (p0) new MutationObserver(function () { safe(updateStatus); }).observe(p0, { attributes: true, attributeFilter: ['style'] });
     }
 
+    function loadScript(name) {
+        var s = document.createElement('script');
+        s.src = 'scripts/' + name;
+        document.head.appendChild(s);
+    }
+
     function initAppEarly() {
         window.orbToast = toast;
+        window.orbIcon = ic;
+        window.orbDeskActive = deskActive;
         // Gerenciador de arquivos estilo Explorer (aba Arquivos)
-        var fxs = document.createElement('script');
-        fxs.src = 'scripts/orbita-files.js';
-        document.head.appendChild(fxs);
+        loadScript('orbita-files.js');
+        // Ponteiro, gestos e teclado do desktop remoto, só em aparelhos sem mouse
+        if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) loadScript('orbita-touch.js');
         buildHeader();
         labelRail();
         buildStatus();

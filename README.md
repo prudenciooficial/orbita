@@ -56,6 +56,10 @@ As imagens foram tiradas num servidor de demonstração com três computadores L
   **Ajustar** e **Preencher** (sem bordas pretas). Nunca entra em tela cheia sozinha.
 - `Ctrl+V` envia primeiro o texto da sua área de transferência e só depois a tecla.
 - Arquivos colados ou arrastados para o desktop vão direto para o computador remoto.
+- **Controle por toque no celular e no tablet**: no modo ponteiro a tela vira um touchpad
+  (deslizar move o ponteiro, tocar clica, segurar é o botão direito, tocar duas vezes e arrastar
+  segura o botão); no modo toque o clique sai onde o dedo encostou. Dois dedos rolam a tela e
+  um botão flutuante abre o teclado do aparelho.
 
 **Gerenciador de arquivos estilo Explorer**
 - Voltar, avançar, subir, barra de endereço clicável ou digitável e pesquisa na pasta.

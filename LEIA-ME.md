@@ -90,6 +90,7 @@ Em `src/custom.js`, altere `BRAND` no topo e rode `src/construir.sh` e `./instal
 - `src/icons.py` — ícones SVG usados no CSS.
 - `src/custom.js` — marca, busca rápida, atalhos, desktop remoto, encaixe das áreas roláveis.
 - `src/orbita-files.js` — gerenciador de arquivos estilo Explorer.
+- `src/orbita-touch.js` — ponteiro, gestos e teclado do desktop remoto em aparelhos sem mouse.
 - `src/construir.sh` — gera `dist/` a partir de `src/`.
 - `dist/public/` — arquivos prontos, copiados para `/opt/meshcentral/meshcentral-web/public`.
 
@@ -99,6 +100,9 @@ Em `src/custom.js`, altere `BRAND` no topo e rode `src/construir.sh` e `./instal
   página "mobile" própria do MeshCentral é trocada pela clássica (`?mobile=0`), que abaixo de
   760 px ganha menu inferior, abas roláveis, cartões em coluna e gerenciador de arquivos
   compacto. A "nova interface" (Bootstrap) continua com o visual original.
+- A tela remota do MeshCentral só escuta o mouse. Em aparelhos sem mouse, o
+  `scripts/orbita-touch.js` lê os gestos e os envia pelas funções da própria página, e o botão
+  flutuante abre o teclado do aparelho, que a interface clássica não tem.
 - O MeshCentral recalcula a altura de listas, desktop e terminal em JavaScript; o tema
   mede e encaixa essas áreas automaticamente para nada ficar escondido atrás do rodapé.
 - Testado no MeshCentral 1.2.6. Em atualizações do MeshCentral, confira as telas
