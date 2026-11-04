@@ -19,7 +19,32 @@
     var root = document.documentElement;
     root.classList.add('orb');
 
-    var isMac = /Mac|iPhone|iPad/.test(navigator.platform || '');
+    // ---------- Versão: o Safari do iPhone pode ficar com scripts antigos ----------
+    // Mesmo com max-age=0 ele reaproveita o que guardou, sem perguntar ao servidor.
+    // O construir.sh grava a mesma versão aqui e em orbita/versao.txt: se elas
+    // diferem, esta cópia está velha. Os arquivos são baixados de novo e a página
+    // recarrega, uma vez por aba, para não entrar em laço se a troca não pegar.
+    var VERSION = 'b422eba100f9';
+    var VERSION_FILES = ['scripts/custom.js', 'scripts/orbita-files.js', 'scripts/orbita-touch.js', 'styles/custom.css'];
+    root.setAttribute('data-orb-version', VERSION);
+
+    function checkVersion() {
+        if (!window.fetch) return;
+        fetch('orbita/versao.txt?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+            return r.ok ? r.text() : '';
+        }).then(function (text) {
+            var latest = text.trim();
+            if (!latest || latest === VERSION || sessionStorage.getItem('orbVersion') === latest) return;
+            return Promise.all(VERSION_FILES.map(function (f) { return fetch(f, { cache: 'reload' }); })).then(function () {
+                sessionStorage.setItem('orbVersion', latest);
+                // Logo depois do login a página veio de um POST: sem isto, recarregar reenviaria o formulário.
+                history.replaceState(history.state, '', location.href);
+                location.reload();
+            });
+        }).catch(function () { });
+    }
+
+    var isMac =/Mac|iPhone|iPad/.test(navigator.platform || '');
     var MOD = isMac ? '⌘' : 'Ctrl';
 
     var ICON = {
@@ -927,6 +952,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         if (safe(mobileRedirect)) return;
+        safe(checkVersion);
         safe(renameTitle);
         var body = document.body;
         if (body && body.classList.contains('login')) { safe(initLogin); return; }

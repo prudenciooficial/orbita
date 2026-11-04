@@ -103,6 +103,9 @@ Em `src/custom.js`, altere `BRAND` no topo e rode `src/construir.sh` e `./instal
 - A tela remota do MeshCentral só escuta o mouse. Em aparelhos sem mouse, o
   `scripts/orbita-touch.js` lê os gestos e os envia pelas funções da própria página, e o botão
   flutuante abre o teclado do aparelho, que a interface clássica não tem.
+- O Safari do iPhone pode continuar usando scripts antigos depois de uma atualização. Por
+  isso o `construir.sh` grava uma versão no `custom.js` e em `orbita/versao.txt`: a página
+  confere as duas ao abrir e, se diferirem, baixa os arquivos de novo e recarrega.
 - O MeshCentral recalcula a altura de listas, desktop e terminal em JavaScript; o tema
   mede e encaixa essas áreas automaticamente para nada ficar escondido atrás do rodapé.
 - Testado no MeshCentral 1.2.6. Em atualizações do MeshCentral, confira as telas
