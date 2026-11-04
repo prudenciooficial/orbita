@@ -9,6 +9,25 @@ gerenciador de arquivos completo no estilo do Explorer do Windows.
 São cerca de 3.900 linhas de código próprio (JavaScript, CSS e ferramentas de construção),
 instaladas sobre um servidor MeshCentral sem alterar nenhum arquivo dele.
 
+## Capturas de tela
+
+![Lista de dispositivos do Órbita, com cartões, status e atalhos rápidos](prints/dispositivos.png)
+
+| | |
+|:--:|:--:|
+| ![Tela de login](prints/login.png) | ![Busca rápida com Ctrl+K](prints/busca-rapida.png) |
+| **Login** — fundo escuro animado e cartão de vidro | **Busca rápida (Ctrl+K)** — abre o dispositivo direto no desktop, terminal ou arquivos |
+| ![Área de trabalho remota](prints/area-de-trabalho.png) | ![Terminal remoto](prints/terminal.png) |
+| **Área de trabalho remota** — tela cheia sob demanda, Ajustar/Preencher | **Terminal** — conecta com um clique, indicador de latência |
+| ![Gerenciador de arquivos](prints/arquivos.png) | ![Menu do botão direito no gerenciador de arquivos](prints/arquivos-menu.png) |
+| **Arquivos** — estilo Explorer, com painel lateral e colunas ordenáveis | **Menu de contexto** — baixar, recortar, copiar, renomear, excluir, ZIP |
+| ![Página do dispositivo](prints/dispositivo.png) | ![Eventos](prints/eventos.png) |
+| **Dispositivo** — abas com ícones e resumo do sistema | **Eventos** — logins e sessões, com filtro e exportação |
+| ![Tema escuro](prints/tema-escuro.png) | |
+| **Tema escuro** — alterna pelo botão no cabeçalho | |
+
+As imagens foram tiradas num servidor de demonstração com três computadores Linux de teste.
+
 ## Recursos
 
 **Painel**
